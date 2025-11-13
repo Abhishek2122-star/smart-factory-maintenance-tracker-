@@ -4,6 +4,7 @@ import Dashboard from "./pages/Dashboard";
 import AddMaintenance from "./pages/AddMaintenance";
 import Reports from "./pages/Reports";
 import CalendarView from "./pages/CalendarView";
+import SpareParts from "./pages/SpareParts";
 import "./App.css";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
             <Link to="/add">Add Maintenance</Link>
             <Link to="/calendar">Calendar</Link>
             <Link to="/reports">Reports</Link>
+            <Link to="/spare-parts">🔧 Spare Parts</Link>
           </nav>
         </header>
 
@@ -26,6 +28,7 @@ function App() {
             <Route path="/add" element={<AddMaintenance />} />
             <Route path="/calendar" element={<CalendarView />} />
             <Route path="/reports" element={<Reports />} />
+            <Route path="/spare-parts" element={<SpareParts />} />
           </Routes>
         </main>
 

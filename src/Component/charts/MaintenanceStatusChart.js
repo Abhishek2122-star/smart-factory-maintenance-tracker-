@@ -1,29 +1,55 @@
-// src/components/Charts/MaintenanceStatusChart.js
 import React from "react";
-import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
+import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
 const MaintenanceStatusChart = ({ data }) => {
-  const COLORS = ["#00C49F", "#FF8042", "#0088FE"];
+  const getStatus = (nextDueDate) => {
+    if (!nextDueDate) return "Pending";
+    const today = new Date().toISOString().split("T")[0];
+    const daysUntilDue = Math.ceil(
+      (new Date(nextDueDate) - new Date(today)) / (1000 * 60 * 60 * 24)
+    );
+
+    if (daysUntilDue < 0) return "Overdue";
+    if (daysUntilDue <= 7) return "Due Soon";
+    return "On Time";
+  };
+
+  const statuses = ["On Time", "Due Soon", "Overdue", "Pending"];
+  const chartData = statuses.map((status) => ({
+    name: status,
+    value: data.filter((log) => getStatus(log.nextDue) === status).length,
+  })).filter(item => item.value > 0);
+
+  const COLORS = ["#00C49F", "#FFBB28", "#FF8042", "#8884D8"];
+
+  if (chartData.length === 0) {
+    return (
+      <div style={{ textAlign: "center", padding: "20px", color: "#999" }}>
+        <p>No maintenance data to display</p>
+      </div>
+    );
+  }
 
   return (
-    <div>
-      <h3 className="text-xl font-semibold mb-2">Maintenance Status Overview</h3>
-      <PieChart width={300} height={250}>
-        <Pie
-          data={data}
-          cx={150}
-          cy={100}
-          outerRadius={80}
-          label
-          dataKey="value"
-        >
-          {data.map((entry, index) => (
-            <Cell key={index} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Pie>
-        <Tooltip />
-        <Legend />
-      </PieChart>
+    <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+      <ResponsiveContainer width="100%" height={300}>
+        <PieChart>
+          <Pie
+            data={chartData}
+            cx="50%"
+            cy="50%"
+            outerRadius={100}
+            label
+            dataKey="value"
+          >
+            {chartData.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
+          <Tooltip />
+          <Legend />
+        </PieChart>
+      </ResponsiveContainer>
     </div>
   );
 };
