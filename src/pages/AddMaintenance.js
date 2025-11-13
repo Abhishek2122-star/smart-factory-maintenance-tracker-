@@ -18,6 +18,7 @@ const AddMaintenance = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(`✏️ Field changed: ${name} = ${value}`);
     setForm((prev) => ({
       ...prev,
       [name]: name === "maintenanceInterval" ? parseInt(value) : value,
@@ -26,6 +27,8 @@ const AddMaintenance = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("📝 Form submitted with data:", form);
+    
     if (!form.machineName || !form.date || !form.technician) {
       setMessage("❌ Please fill all required fields!");
       setTimeout(() => setMessage(""), 3000);
@@ -37,15 +40,24 @@ const AddMaintenance = () => {
       const nextDue = calculateNextDueDate(form.date, form.maintenanceInterval);
 
       const logEntry = {
-        ...form,
-        nextDue,
-        timestamp: new Date().toISOString(),
+        machineName: form.machineName,           // Explicitly store machine name
+        date: form.date,                          // Explicitly store date
         readings: form.readings ? form.readings.split(",").map((r) => r.trim()) : [],
+        issue: form.issue || "",                  // Explicitly store issue
+        technician: form.technician,              // Explicitly store technician
+        maintenanceInterval: form.maintenanceInterval,  // Explicitly store interval
+        nextDue: nextDue,
+        timestamp: new Date().toISOString(),
         status: form.status || "Pending",
       };
 
+      console.log("📤 Saving to Firebase:", logEntry);
+
       // Add to Firebase Firestore
-      await addDoc(collection(db, "maintenance_logs"), logEntry);
+      const docRef = await addDoc(collection(db, "maintenance_logs"), logEntry);
+      
+      console.log("✅ Document saved with ID:", docRef.id);
+      console.log("💾 Full saved document:", logEntry);
 
       setMessage("✅ Maintenance record added successfully!");
       setForm({
@@ -59,7 +71,9 @@ const AddMaintenance = () => {
       });
       setTimeout(() => setMessage(""), 3000);
     } catch (error) {
-      console.error("Error:", error);
+      console.error("❌ Error adding record:", error);
+      console.error("Error code:", error.code);
+      console.error("Error message:", error.message);
       setMessage("❌ Error adding record: " + error.message);
       setTimeout(() => setMessage(""), 3000);
     } finally {
