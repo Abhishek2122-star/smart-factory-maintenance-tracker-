@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { db } from "../firebase/firebaseConfig";
+import { db } from "../Firebase/firebaseConfig";
 import { addDoc, collection } from "firebase/firestore";
 import { calculateNextDueDate } from "../utils/calculateNextDue";
 

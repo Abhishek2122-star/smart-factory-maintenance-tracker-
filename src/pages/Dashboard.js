@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { db } from "../firebase/firebaseConfig";
+import { db } from "../Firebase/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
-import MaintenanceStatusChart from "../components/Charts/MaintenanceStatusChart";
+import MaintenanceStatusChart from "../Component/charts/MaintenanceStatusChart";
 
 const Dashboard = () => {
   const [machines, setMachines] = useState([]);

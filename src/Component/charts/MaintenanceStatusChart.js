@@ -1,26 +1,29 @@
+// src/components/Charts/MaintenanceStatusChart.js
 import React from "react";
-import { Pie } from "react-chartjs-2";
+import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 
 const MaintenanceStatusChart = ({ data }) => {
-  const statuses = ["On Time", "Due Soon", "Overdue"];
-  const counts = statuses.map(
-    (status) => data.filter((m) => m.status === status).length
-  );
-
-  const chartData = {
-    labels: statuses,
-    datasets: [
-      {
-        data: counts,
-        backgroundColor: ["#4CAF50", "#FFEB3B", "#F44336"],
-      },
-    ],
-  };
+  const COLORS = ["#00C49F", "#FF8042", "#0088FE"];
 
   return (
-    <div className="chart-container">
-      <h3>Machine Status Overview</h3>
-      <Pie data={chartData} />
+    <div>
+      <h3 className="text-xl font-semibold mb-2">Maintenance Status Overview</h3>
+      <PieChart width={300} height={250}>
+        <Pie
+          data={data}
+          cx={150}
+          cy={100}
+          outerRadius={80}
+          label
+          dataKey="value"
+        >
+          {data.map((entry, index) => (
+            <Cell key={index} fill={COLORS[index % COLORS.length]} />
+          ))}
+        </Pie>
+        <Tooltip />
+        <Legend />
+      </PieChart>
     </div>
   );
 };
