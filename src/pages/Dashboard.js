@@ -76,77 +76,85 @@ const Dashboard = () => {
   const dueSoonCount = countByStatus("Due Soon");
   const overdueCount = countByStatus("Overdue");
 
-  const statCardStyle = (gradient) => ({
-    padding: "30px",
-    background: gradient,
-    borderRadius: "16px",
-    textAlign: "center",
-    color: "white",
-    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.25)",
-    border: "2px solid rgba(255, 255, 255, 0.1)",
-    transition: "all 0.3s ease",
-    cursor: "pointer",
-    transform: "scale(1)",
-  });
-
   return (
-    <div style={{ padding: "40px 20px" }}>
+    <div style={{ padding: "30px 20px" }}>
       <h1 style={{ 
-        fontSize: "2.5rem", 
+        fontSize: "2.2rem", 
         marginBottom: "10px",
-        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-        WebkitBackgroundClip: "text",
-        WebkitTextFillColor: "transparent",
-        backgroundClip: "text",
+        color: "#2c3e50",
       }}>
         🏭 Factory Maintenance Dashboard
       </h1>
       <p style={{ 
-        color: "white", 
-        marginBottom: "40px",
-        fontSize: "1.1rem",
-        fontWeight: "600",
+        color: "#555", 
+        marginBottom: "30px",
+        fontSize: "1rem",
+        fontWeight: "500",
       }}>
-        📊 Total Machines Logged: <strong>{logs.length}</strong>
+        📊 Total Machines Logged: <strong style={{ color: "#3498db", fontSize: "1.1rem" }}>{logs.length}</strong>
       </p>
 
       <div
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-          gap: "25px",
-          marginBottom: "50px",
+          gap: "20px",
+          marginBottom: "40px",
         }}
       >
         <div
-          style={statCardStyle("linear-gradient(135deg, #11998e 0%, #38ef7d 100%)")}
-          onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.05)"}
-          onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
+          style={{
+            padding: "25px",
+            background: "#27ae60",
+            borderRadius: "10px",
+            textAlign: "center",
+            color: "white",
+            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+            transition: "all 0.3s ease",
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-3px)"}
+          onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}
         >
-          <h3 style={{ margin: "0 0 15px 0", fontSize: "1.1rem", textTransform: "uppercase", letterSpacing: "1px" }}>✅ On Time</h3>
-          <div style={{ fontSize: "3.5rem", fontWeight: "800" }}>
+          <h3 style={{ margin: "0 0 12px 0", fontSize: "0.95rem", textTransform: "uppercase", letterSpacing: "0.5px" }}>✅ On Time</h3>
+          <div style={{ fontSize: "3rem", fontWeight: "800" }}>
             {onTimeCount}
           </div>
         </div>
 
         <div
-          style={statCardStyle("linear-gradient(135deg, #f093fb 0%, #f5576c 100%)")}
-          onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.05)"}
-          onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
+          style={{
+            padding: "25px",
+            background: "#f39c12",
+            borderRadius: "10px",
+            textAlign: "center",
+            color: "white",
+            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+            transition: "all 0.3s ease",
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-3px)"}
+          onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}
         >
-          <h3 style={{ margin: "0 0 15px 0", fontSize: "1.1rem", textTransform: "uppercase", letterSpacing: "1px" }}>⚠️ Due Soon</h3>
-          <div style={{ fontSize: "3.5rem", fontWeight: "800" }}>
+          <h3 style={{ margin: "0 0 12px 0", fontSize: "0.95rem", textTransform: "uppercase", letterSpacing: "0.5px" }}>⚠️ Due Soon</h3>
+          <div style={{ fontSize: "3rem", fontWeight: "800" }}>
             {dueSoonCount}
           </div>
         </div>
 
         <div
-          style={statCardStyle("linear-gradient(135deg, #fa709a 0%, #fee140 100%)")}
-          onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.05)"}
-          onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
+          style={{
+            padding: "25px",
+            background: "#e74c3c",
+            borderRadius: "10px",
+            textAlign: "center",
+            color: "white",
+            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+            transition: "all 0.3s ease",
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-3px)"}
+          onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}
         >
-          <h3 style={{ margin: "0 0 15px 0", fontSize: "1.1rem", textTransform: "uppercase", letterSpacing: "1px" }}>🔴 Overdue</h3>
-          <div style={{ fontSize: "3.5rem", fontWeight: "800" }}>
+          <h3 style={{ margin: "0 0 12px 0", fontSize: "0.95rem", textTransform: "uppercase", letterSpacing: "0.5px" }}>🔴 Overdue</h3>
+          <div style={{ fontSize: "3rem", fontWeight: "800" }}>
             {overdueCount}
           </div>
         </div>
