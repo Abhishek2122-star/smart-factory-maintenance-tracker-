@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { collection, onSnapshot, deleteDoc, doc } from "firebase/firestore";
-import { db } from "../firebase/firebaseConfig";
+import { collection, onSnapshot, deleteDoc, doc, updateDoc } from "firebase/firestore";
+import { db } from "../Firebase/firebaseConfig";
 import { generateMaintenanceReport } from "../utils/pdfGenerator";
 import { exportToCSV } from "../utils/csvExporter";
 
@@ -94,25 +94,29 @@ const Reports = () => {
     return "On Time";
   };
 
-  const deleteRecord = (id) => {
+  const deleteRecord = async (id) => {
     if (window.confirm("Are you sure you want to delete this record?")) {
-      const updatedLogs = logs.filter((log) => log.id !== id);
-      localStorage.setItem("maintenance_logs", JSON.stringify(updatedLogs));
-      setLogs(updatedLogs);
-      alert("✅ Record deleted successfully!");
+      try {
+        await deleteDoc(doc(db, "maintenance_logs", id));
+        alert("✅ Record deleted successfully!");
+      } catch (error) {
+        console.error("Error deleting record:", error);
+        alert("❌ Error deleting record");
+      }
     }
   };
 
-  const completeRecord = (id) => {
-    const updatedLogs = logs.map((log) => {
-      if (log.id === id) {
-        return { ...log, status: "completed", completedDate: new Date().toISOString() };
-      }
-      return log;
-    });
-    localStorage.setItem("maintenance_logs", JSON.stringify(updatedLogs));
-    setLogs(updatedLogs);
-    alert("✅ Record marked as completed!");
+  const completeRecord = async (id) => {
+    try {
+      await updateDoc(doc(db, "maintenance_logs", id), {
+        status: "completed",
+        completedDate: new Date().toISOString(),
+      });
+      alert("✅ Record marked as completed!");
+    } catch (error) {
+      console.error("Error updating record:", error);
+      alert("❌ Error updating record");
+    }
   };
 
   const getStatusColor = (status) => {

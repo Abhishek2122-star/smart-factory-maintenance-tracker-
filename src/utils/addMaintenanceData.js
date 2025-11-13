@@ -1,5 +1,5 @@
 // src/utils/addMaintenanceData.js
-import { db, storage } from "../firebase/firebaseConfig";
+import { db, storage } from "../Firebase/firebaseConfig";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 

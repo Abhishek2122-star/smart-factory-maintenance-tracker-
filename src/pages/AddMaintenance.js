@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
-import { db } from "../firebase/firebaseConfig";
+import { db } from "../Firebase/firebaseConfig";
 import { calculateNextDueDate } from "../utils/calculateNextDue";
 
 const AddMaintenance = () => {

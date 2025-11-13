@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { collection, onSnapshot, deleteDoc, doc, updateDoc } from "firebase/firestore";
-import { db } from "../firebase/firebaseConfig";
+import { db } from "../Firebase/firebaseConfig";
 import MaintenanceStatusChart from "../Component/charts/MaintenanceStatusChart";
 
 const Dashboard = () => {
