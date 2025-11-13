@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { collection, onSnapshot, deleteDoc, doc } from "firebase/firestore";
+import { db } from "../firebase/firebaseConfig";
 import { generateMaintenanceReport } from "../utils/pdfGenerator";
 import { exportToCSV } from "../utils/csvExporter";
 
@@ -14,25 +16,36 @@ const Reports = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchLogs = () => {
-      try {
-        const data = localStorage.getItem("maintenance_logs");
-        const logs = data ? JSON.parse(data) : [];
-        // Sort by timestamp descending
-        logs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-        setLogs(logs);
-        setFilteredLogs(logs);
+    // Subscribe to real-time updates from Firestore
+    const unsubscribe = onSnapshot(
+      collection(db, "maintenance_logs"),
+      (snapshot) => {
+        try {
+          const logsData = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          // Sort by timestamp descending
+          logsData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+          setLogs(logsData);
+          setFilteredLogs(logsData);
 
-        // Extract unique machine names
-        const uniqueMachines = [...new Set(logs.map((log) => log.machineName))];
-        setMachines(uniqueMachines);
-      } catch (error) {
-        console.error("Error fetching logs:", error);
-      } finally {
+          // Extract unique machine names
+          const uniqueMachines = [...new Set(logsData.map((log) => log.machineName))];
+          setMachines(uniqueMachines);
+        } catch (error) {
+          console.error("Error fetching logs:", error);
+        } finally {
+          setLoading(false);
+        }
+      },
+      (error) => {
+        console.error("Error listening to collection:", error);
         setLoading(false);
       }
-    };
-    fetchLogs();
+    );
+
+    return () => unsubscribe();
   }, []);
 
   useEffect(() => {

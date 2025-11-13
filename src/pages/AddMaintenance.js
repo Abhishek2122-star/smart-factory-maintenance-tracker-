@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../firebase/firebaseConfig";
 import { calculateNextDueDate } from "../utils/calculateNextDue";
 
 const AddMaintenance = () => {
@@ -35,22 +37,15 @@ const AddMaintenance = () => {
       const nextDue = calculateNextDueDate(form.date, form.maintenanceInterval);
 
       const logEntry = {
-        id: Date.now().toString(), // Simple ID
         ...form,
         nextDue,
         timestamp: new Date().toISOString(),
         readings: form.readings ? form.readings.split(",").map((r) => r.trim()) : [],
+        status: form.status || "Pending",
       };
 
-      // Get existing records from localStorage
-      const existing = localStorage.getItem("maintenance_logs");
-      const logs = existing ? JSON.parse(existing) : [];
-      
-      // Add new record
-      logs.push(logEntry);
-      
-      // Save back to localStorage
-      localStorage.setItem("maintenance_logs", JSON.stringify(logs));
+      // Add to Firebase Firestore
+      await addDoc(collection(db, "maintenance_logs"), logEntry);
 
       setMessage("✅ Maintenance record added successfully!");
       setForm({
