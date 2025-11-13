@@ -76,62 +76,77 @@ const Dashboard = () => {
   const dueSoonCount = countByStatus("Due Soon");
   const overdueCount = countByStatus("Overdue");
 
+  const statCardStyle = (gradient) => ({
+    padding: "30px",
+    background: gradient,
+    borderRadius: "16px",
+    textAlign: "center",
+    color: "white",
+    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.25)",
+    border: "2px solid rgba(255, 255, 255, 0.1)",
+    transition: "all 0.3s ease",
+    cursor: "pointer",
+    transform: "scale(1)",
+  });
+
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>🏭 Factory Maintenance Dashboard</h1>
-      <p style={{ color: "#666", marginBottom: "20px" }}>
-        Total Machines Logged: <strong>{logs.length}</strong>
+    <div style={{ padding: "40px 20px" }}>
+      <h1 style={{ 
+        fontSize: "2.5rem", 
+        marginBottom: "10px",
+        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+        WebkitBackgroundClip: "text",
+        WebkitTextFillColor: "transparent",
+        backgroundClip: "text",
+      }}>
+        🏭 Factory Maintenance Dashboard
+      </h1>
+      <p style={{ 
+        color: "white", 
+        marginBottom: "40px",
+        fontSize: "1.1rem",
+        fontWeight: "600",
+      }}>
+        📊 Total Machines Logged: <strong>{logs.length}</strong>
       </p>
 
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-          gap: "15px",
-          marginBottom: "30px",
+          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+          gap: "25px",
+          marginBottom: "50px",
         }}
       >
         <div
-          style={{
-            padding: "20px",
-            backgroundColor: "#d4edda",
-            border: "2px solid #155724",
-            borderRadius: "8px",
-            textAlign: "center",
-          }}
+          style={statCardStyle("linear-gradient(135deg, #11998e 0%, #38ef7d 100%)")}
+          onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.05)"}
+          onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
         >
-          <h3 style={{ color: "#155724", margin: "0 0 10px 0" }}>✅ On Time</h3>
-          <div style={{ fontSize: "32px", fontWeight: "bold", color: "#155724" }}>
+          <h3 style={{ margin: "0 0 15px 0", fontSize: "1.1rem", textTransform: "uppercase", letterSpacing: "1px" }}>✅ On Time</h3>
+          <div style={{ fontSize: "3.5rem", fontWeight: "800" }}>
             {onTimeCount}
           </div>
         </div>
 
         <div
-          style={{
-            padding: "20px",
-            backgroundColor: "#fff3cd",
-            border: "2px solid #856404",
-            borderRadius: "8px",
-            textAlign: "center",
-          }}
+          style={statCardStyle("linear-gradient(135deg, #f093fb 0%, #f5576c 100%)")}
+          onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.05)"}
+          onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
         >
-          <h3 style={{ color: "#856404", margin: "0 0 10px 0" }}>⚠️ Due Soon</h3>
-          <div style={{ fontSize: "32px", fontWeight: "bold", color: "#856404" }}>
+          <h3 style={{ margin: "0 0 15px 0", fontSize: "1.1rem", textTransform: "uppercase", letterSpacing: "1px" }}>⚠️ Due Soon</h3>
+          <div style={{ fontSize: "3.5rem", fontWeight: "800" }}>
             {dueSoonCount}
           </div>
         </div>
 
         <div
-          style={{
-            padding: "20px",
-            backgroundColor: "#f8d7da",
-            border: "2px solid #721c24",
-            borderRadius: "8px",
-            textAlign: "center",
-          }}
+          style={statCardStyle("linear-gradient(135deg, #fa709a 0%, #fee140 100%)")}
+          onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.05)"}
+          onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
         >
-          <h3 style={{ color: "#721c24", margin: "0 0 10px 0" }}>🔴 Overdue</h3>
-          <div style={{ fontSize: "32px", fontWeight: "bold", color: "#721c24" }}>
+          <h3 style={{ margin: "0 0 15px 0", fontSize: "1.1rem", textTransform: "uppercase", letterSpacing: "1px" }}>🔴 Overdue</h3>
+          <div style={{ fontSize: "3.5rem", fontWeight: "800" }}>
             {overdueCount}
           </div>
         </div>
