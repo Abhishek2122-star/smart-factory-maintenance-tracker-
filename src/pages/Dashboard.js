@@ -38,6 +38,27 @@ const Dashboard = () => {
     return logs.filter((log) => getStatus(log.nextDue) === status).length;
   };
 
+  const deleteRecord = (id) => {
+    if (window.confirm("Are you sure you want to delete this record?")) {
+      const updatedLogs = logs.filter((log) => log.id !== id);
+      localStorage.setItem("maintenance_logs", JSON.stringify(updatedLogs));
+      setLogs(updatedLogs);
+      alert("✅ Record deleted successfully!");
+    }
+  };
+
+  const completeRecord = (id) => {
+    const updatedLogs = logs.map((log) => {
+      if (log.id === id) {
+        return { ...log, status: "completed", completedDate: new Date().toISOString() };
+      }
+      return log;
+    });
+    localStorage.setItem("maintenance_logs", JSON.stringify(updatedLogs));
+    setLogs(updatedLogs);
+    alert("✅ Record marked as completed!");
+  };
+
   const getStatusColor = (status) => {
     switch (status) {
       case "On Time":
@@ -159,6 +180,9 @@ const Dashboard = () => {
                   <th style={{ padding: "12px", textAlign: "left", fontWeight: "bold" }}>
                     Status
                   </th>
+                  <th style={{ padding: "12px", textAlign: "center", fontWeight: "bold" }}>
+                    Actions
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -191,6 +215,48 @@ const Dashboard = () => {
                         }}
                       >
                         {status}
+                      </td>
+                      <td
+                        style={{
+                          padding: "12px",
+                          textAlign: "center",
+                          display: "flex",
+                          gap: "8px",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <button
+                          onClick={() => completeRecord(log.id)}
+                          style={{
+                            padding: "6px 12px",
+                            backgroundColor: "#28a745",
+                            color: "white",
+                            border: "none",
+                            borderRadius: "4px",
+                            cursor: "pointer",
+                            fontSize: "12px",
+                            fontWeight: "bold",
+                          }}
+                          title="Mark as completed"
+                        >
+                          ✓ Done
+                        </button>
+                        <button
+                          onClick={() => deleteRecord(log.id)}
+                          style={{
+                            padding: "6px 12px",
+                            backgroundColor: "#dc3545",
+                            color: "white",
+                            border: "none",
+                            borderRadius: "4px",
+                            cursor: "pointer",
+                            fontSize: "12px",
+                            fontWeight: "bold",
+                          }}
+                          title="Delete record"
+                        >
+                          🗑️ Delete
+                        </button>
                       </td>
                     </tr>
                   );
