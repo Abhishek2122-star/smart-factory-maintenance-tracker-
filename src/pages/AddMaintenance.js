@@ -50,7 +50,7 @@ const AddMaintenance = () => {
       };
 
       // Add to Firebase Firestore
-      const docRef = await addDoc(collection(db, "maintenance_logs"), logEntry);
+      await addDoc(collection(db, "maintenance_logs"), logEntry);
 
       setMessage("✅ Maintenance record added successfully!");
       setForm({
