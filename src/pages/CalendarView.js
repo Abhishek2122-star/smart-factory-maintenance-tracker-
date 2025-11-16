@@ -1,20 +1,28 @@
 import React, { useEffect, useState } from "react";
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from "../Firebase/firebaseConfig";
 
 const CalendarView = () => {
   const [logs, setLogs] = useState([]);
   const [currentDate, setCurrentDate] = useState(new Date());
 
   useEffect(() => {
-    const fetchLogs = () => {
-      try {
-        const data = localStorage.getItem("maintenance_logs");
-        const logs = data ? JSON.parse(data) : [];
-        setLogs(logs);
-      } catch (error) {
-        console.error("Error fetching logs:", error);
+    // Subscribe to real-time updates from Firestore
+    const unsubscribe = onSnapshot(
+      collection(db, "maintenance_logs"),
+      (snapshot) => {
+        const logsData = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setLogs(logsData);
+      },
+      (error) => {
+        // Handle error silently
       }
-    };
-    fetchLogs();
+    );
+    
+    return () => unsubscribe();
   }, []);
 
   const getDaysInMonth = (date) => new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();

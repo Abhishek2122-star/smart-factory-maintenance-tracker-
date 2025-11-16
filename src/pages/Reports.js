@@ -34,13 +34,12 @@ const Reports = () => {
           const uniqueMachines = [...new Set(logsData.map((log) => log.machineName))];
           setMachines(uniqueMachines);
         } catch (error) {
-          console.error("Error fetching logs:", error);
+          // Handle error silently
         } finally {
           setLoading(false);
         }
       },
       (error) => {
-        console.error("Error listening to collection:", error);
         setLoading(false);
       }
     );
@@ -100,7 +99,6 @@ const Reports = () => {
         await deleteDoc(doc(db, "maintenance_logs", id));
         alert("✅ Record deleted successfully!");
       } catch (error) {
-        console.error("Error deleting record:", error);
         alert("❌ Error deleting record");
       }
     }
@@ -114,7 +112,6 @@ const Reports = () => {
       });
       alert("✅ Record marked as completed!");
     } catch (error) {
-      console.error("Error updating record:", error);
       alert("❌ Error updating record");
     }
   };

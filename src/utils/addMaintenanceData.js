@@ -25,7 +25,6 @@ export const addMaintenanceRecord = async (data, imageFile) => {
 
     return { success: true, message: "Maintenance record added successfully!" };
   } catch (error) {
-    console.error("Error adding maintenance record:", error);
     return { success: false, message: error.message };
   }
 };

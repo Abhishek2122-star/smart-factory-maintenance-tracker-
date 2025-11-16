@@ -5,7 +5,6 @@ import AddMaintenance from "./pages/AddMaintenance";
 import Reports from "./pages/Reports";
 import CalendarView from "./pages/CalendarView";
 import SpareParts from "./pages/SpareParts";
-import FirebaseTest from "./pages/FirebaseTest";
 import "./App.css";
 
 function App() {
@@ -20,7 +19,6 @@ function App() {
             <Link to="/calendar">Calendar</Link>
             <Link to="/reports">Reports</Link>
             <Link to="/spare-parts">🔧 Spare Parts</Link>
-            <Link to="/test">🔥 Firebase Test</Link>
           </nav>
         </header>
 
@@ -31,7 +29,6 @@ function App() {
             <Route path="/calendar" element={<CalendarView />} />
             <Route path="/reports" element={<Reports />} />
             <Route path="/spare-parts" element={<SpareParts />} />
-            <Route path="/test" element={<FirebaseTest />} />
           </Routes>
         </main>
 

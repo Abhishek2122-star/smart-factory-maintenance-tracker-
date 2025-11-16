@@ -15,10 +15,6 @@ const Dashboard = () => {
         try {
           const logsData = snapshot.docs.map((doc) => {
             const data = doc.data();
-            console.log(`📄 Document ${doc.id}:`, data);
-            console.log(`   Machine Name: ${data.machineName}`);
-            console.log(`   Technician: ${data.technician}`);
-            console.log(`   Date: ${data.date}`);
             return {
               id: doc.id,
               ...data,
@@ -27,7 +23,6 @@ const Dashboard = () => {
           // Sort by timestamp descending
           logsData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
           setLogs(logsData);
-          console.log("✅ Total records fetched:", logsData.length);
         } catch (error) {
           console.error("Error fetching logs:", error);
         } finally {
@@ -35,9 +30,6 @@ const Dashboard = () => {
         }
       },
       (error) => {
-        console.error("Error listening to collection:", error);
-        console.error("Error code:", error.code);
-        console.error("Error message:", error.message);
         setLoading(false);
       }
     );
@@ -68,7 +60,6 @@ const Dashboard = () => {
         await deleteDoc(doc(db, "maintenance_logs", id));
         alert("✅ Record deleted successfully!");
       } catch (error) {
-        console.error("Error deleting record:", error);
         alert("❌ Error deleting record");
       }
     }
@@ -82,7 +73,6 @@ const Dashboard = () => {
       });
       alert("✅ Record marked as completed!");
     } catch (error) {
-      console.error("Error updating record:", error);
       alert("❌ Error updating record");
     }
   };

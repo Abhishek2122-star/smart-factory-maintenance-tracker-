@@ -22,7 +22,7 @@ const SpareParts = () => {
         parts.sort((a, b) => new Date(b.replacementDate) - new Date(a.replacementDate));
         setParts(parts);
       } catch (error) {
-        console.error("Error fetching parts:", error);
+        // Handle error silently
       }
     };
     fetchParts();
