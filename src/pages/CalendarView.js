@@ -229,7 +229,7 @@ const CalendarView = () => {
           <div style={{ overflowX: "auto" }}>
             <table style={{ width: "100%", borderCollapse: "collapse" }}>
               <thead>
-                <tr style={{ backgroundColor: "#e9ecef", borderBottom: "2px solid #dee2e6" }}>
+                <tr style={{ backgroundColor: "#2973bcff", borderBottom: "2px solid #dee2e6" }}>
                   <th style={{ padding: "10px", textAlign: "left" }}>Machine</th>
                   <th style={{ padding: "10px", textAlign: "left" }}>Due Date</th>
                   <th style={{ padding: "10px", textAlign: "left" }}>Days Left</th>

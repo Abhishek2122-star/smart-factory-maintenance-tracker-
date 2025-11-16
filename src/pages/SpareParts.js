@@ -365,7 +365,7 @@ const SpareParts = () => {
           <div style={{ overflowX: "auto" }}>
             <table style={{ width: "100%", borderCollapse: "collapse", backgroundColor: "white" }}>
               <thead>
-                <tr style={{ backgroundColor: "#f8f9fa", borderBottom: "2px solid #dee2e6" }}>
+                <tr style={{ backgroundColor: "#2d72b6ff", borderBottom: "2px solid #dee2e6" }}>
                   <th style={{ padding: "12px", textAlign: "left", fontWeight: "bold" }}>Part Name</th>
                   <th style={{ padding: "12px", textAlign: "left", fontWeight: "bold" }}>Quantity</th>
                   <th style={{ padding: "12px", textAlign: "left", fontWeight: "bold" }}>Cost</th>

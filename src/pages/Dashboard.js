@@ -202,8 +202,8 @@ const Dashboard = () => {
               <thead>
                 <tr
                   style={{
-                    backgroundColor: "#f8f9fa",
-                    borderBottom: "2px solid #dee2e6",
+                    backgroundColor: "#35868eff",
+                    borderBottom: "2px solid #0c0f08ff",
                   }}
                 >
                   <th style={{ padding: "12px", textAlign: "left", fontWeight: "bold" }}>

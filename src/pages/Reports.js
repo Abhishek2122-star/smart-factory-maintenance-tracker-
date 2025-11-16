@@ -340,7 +340,7 @@ const Reports = () => {
             <thead>
               <tr
                 style={{
-                  backgroundColor: "#f8f9fa",
+                  backgroundColor: "#1f71c2ff",
                   borderBottom: "2px solid #dee2e6",
                 }}
               >
