@@ -24,7 +24,7 @@ const Dashboard = () => {
           logsData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
           setLogs(logsData);
         } catch (error) {
-          console.error("Error fetching logs:", error);
+          // Handle error silently
         } finally {
           setLoading(false);
         }

@@ -18,7 +18,6 @@ const AddMaintenance = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(`✏️ Field changed: ${name} = ${value}`);
     setForm((prev) => ({
       ...prev,
       [name]: name === "maintenanceInterval" ? parseInt(value) : value,
@@ -27,7 +26,6 @@ const AddMaintenance = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("📝 Form submitted with data:", form);
     
     if (!form.machineName || !form.date || !form.technician) {
       setMessage("❌ Please fill all required fields!");
@@ -51,13 +49,8 @@ const AddMaintenance = () => {
         status: form.status || "Pending",
       };
 
-      console.log("📤 Saving to Firebase:", logEntry);
-
       // Add to Firebase Firestore
       const docRef = await addDoc(collection(db, "maintenance_logs"), logEntry);
-      
-      console.log("✅ Document saved with ID:", docRef.id);
-      console.log("💾 Full saved document:", logEntry);
 
       setMessage("✅ Maintenance record added successfully!");
       setForm({
@@ -71,9 +64,6 @@ const AddMaintenance = () => {
       });
       setTimeout(() => setMessage(""), 3000);
     } catch (error) {
-      console.error("❌ Error adding record:", error);
-      console.error("Error code:", error.code);
-      console.error("Error message:", error.message);
       setMessage("❌ Error adding record: " + error.message);
       setTimeout(() => setMessage(""), 3000);
     } finally {
